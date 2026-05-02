@@ -25,7 +25,7 @@ This is the execution plan: how to break the v2.2 spec into epics, tickets, depe
 
 **Scope:** Ship LifeOps.app (native macOS Tauri+Vite+React) + Loyalty Context Skill + reference Personal Context schema as open-source MIT artifacts, under a 5-weekend timeline.
 
-**9 epics, ~52 tickets, ~190 estimated engineer-hours.** With a 3-person team that's ~3 calendar weeks at 50% utilization. Solo with AI tools, ~5 weekends per the spec.
+**9 epics, 63 tickets, ~202 estimated engineer-hours.** With a 3-person team that's ~3 calendar weeks at 50% utilization. Solo with AI tools, ~5 weekends per the spec.
 
 **The whole project is gated by 4 falsifiable validation tests (P4a-P4d).** Project killed if 2 of 4 fail. P4a (prediction test) is the Sprint 1 gate; if you don't hit ≥7/9 specific predictions correct in 3 trip-plan sessions, no Sprint 2.
 
@@ -160,16 +160,18 @@ For load-bearing code, both model families review. The default rule:
 |---|---|---|---|---|---|---|
 | E1 | Foundation & Pipeline | TL | 6 | 24 | S1.W1 | ⭐ Yes (T2) |
 | E2 | Schema & I/O Core | TL | 6 | 28 | S1.W1-W2 | ⭐ Yes |
-| E3 | CLI (`pc`) | TL | 8 | 21 | S1.W2-W3 | ⭐ Yes |
-| E4 | Native App (Tauri+Vite+React) | FE | 11 | 51 | S1.W2-W3 + S2 | ⭐ Yes |
+| E3 | CLI (`pc`) | TL | 10 | 21 | S1.W2-W3 | ⭐ Yes |
+| E4 | Native App (Tauri+Vite+React) | FE | 13 | 51 | S1.W2-W3 + S2 | ⭐ Yes |
 | E5 | Skill (Claude/ChatGPT) | TL | 5 | 12 | S1.W3 | ⭐ Yes |
 | E6 | MCP Server | TL | 4 | 14 | S2 | No |
 | E7 | Provenance & Merge | FE+TL | 5 | 14 | S2 | No |
-| E8 | Distribution & Launch | TL | 6 | 18 | S2-S3 | Yes (signing) |
+| E8 | Distribution & Launch | TL | 9 | 22 | S2-S3 | Yes (signing) |
 | E9 | Validation & Telemetry | PM | 5 | 16 | All sprints | Yes (P4a gate) |
-| **Total** | | | **56** | **198** | | |
+| **Total** | | | **63** | **202** | | |
 
 **v0.2 changes (2026-05-02):** +E3-T10 `pc add` (3h, S1.W3, pulled from S2 E7-T4); +E4-T13 in-app data-entry forms (7h, S1.W3, NEW); E4-T7/T8/T9 (inventory/detail/loyalty screens, 12h total) deferred from S1 to S2 to make room.
+
+**v0.3 changes (2026-05-02):** +E8-T0 publish `personal-context-schema` OSS repo (4h, S1.W3-S2). Strategic land-grab for schema mindshare ahead of MaxRewards/CardPointers per `outputs/competitor-scan.md`.
 
 ---
 
@@ -711,7 +713,7 @@ E9-T4,E9 Validation,P4d App usage telemetry,TL,2,S1.W2,No,Todo
 E9-T5,E9 Validation,Decision gate doc,PM,1,S1.W3,Yes,Todo
 ```
 
-54 tickets. Total ~190 hours.
+63 tickets. Total ~202 hours.
 
 ---
 
