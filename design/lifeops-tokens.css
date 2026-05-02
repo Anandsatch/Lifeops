@@ -1,0 +1,121 @@
+/* ============================================================
+   LifeOps Design Tokens · v0.1 · 2026-04-30
+   The single source of color, typography, spacing, radius, and shadow
+   values for every screen in LifeOps. See DESIGN.md §1.
+
+   USAGE: @import this file at the top of every component CSS.
+   DO NOT add new tokens here without updating DESIGN.md.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* ---------- BRAND COLORS (card fills only) ---------- */
+  --lo-amex:        #0F4C3A;
+  --lo-chase:       #1A4FA8;
+  --lo-marriott:    #1A2D4D;
+  --lo-hyatt:       #5C2D87;
+  --lo-clear:       #003DA5;
+  --lo-delta:       #2A2A2A;
+  --lo-ba:          #2A6DB8;
+  --lo-united:      #1A4FA8;
+  --lo-grey-card:   #6F6B62;
+
+  /* ---------- ACCENT COLORS ---------- */
+  --lo-red:         #B43A3A;       /* expiry, urgency */
+  --lo-amex-tint:   rgba(15, 76, 58, 0.08);
+
+  /* ---------- SURFACES ---------- */
+  --lo-desk:        #F0EDE6;       /* main app background */
+  --lo-titlebar:    #FAFAF7;
+  --lo-warm-white:  #FFFFFF;
+  --lo-warm-tint:   #F8F6EE;       /* nested panel */
+
+  /* ---------- TEXT ON CARDS ---------- */
+  --lo-card-text:        #F5F1E8;
+  --lo-card-text-muted:  rgba(245, 241, 232, 0.62);
+  --lo-card-glow:        rgba(255, 255, 255, 0.05);
+
+  /* ---------- TEXT OFF CARDS ---------- */
+  --lo-ink:        #1A1A1A;
+  --lo-ink-muted:  #6A6A6A;
+  --lo-ink-faint:  #B0AEA5;
+
+  /* ---------- LINES ---------- */
+  --lo-hairline:   #E0DCD2;
+
+  /* ---------- TYPOGRAPHY ---------- */
+  --lo-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --lo-font-text: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+
+  --lo-fs-mega:     112px;   /* hero countdown */
+  --lo-fs-display:   96px;   /* hero amount, loyalty points */
+  --lo-fs-headline:  56px;   /* onboarding H1 */
+  --lo-fs-h1:        26px;   /* page title */
+  --lo-fs-h2:        15px;   /* section heading */
+  --lo-fs-h3:        11px;   /* eyebrow / mono caps label */
+  --lo-fs-body:      14px;
+  --lo-fs-meta:      11px;
+  --lo-fs-mini:      10px;
+
+  --lo-tracking-tight: -0.02em;
+  --lo-tracking-snug:  -0.01em;
+  --lo-tracking-flat:   0;
+  --lo-tracking-wide:   0.06em;
+  --lo-tracking-caps:   0.16em;
+  --lo-tracking-label:  0.18em;
+
+  /* ---------- SPACING (8px scale) ---------- */
+  --lo-space-1:   4px;
+  --lo-space-2:   8px;
+  --lo-space-3:  12px;
+  --lo-space-4:  16px;
+  --lo-space-5:  20px;
+  --lo-space-6:  24px;
+  --lo-space-8:  32px;
+  --lo-space-10: 40px;
+  --lo-space-12: 48px;
+  --lo-space-14: 56px;
+  --lo-space-16: 64px;
+
+  /* ---------- RADII ---------- */
+  --lo-r-sm:       6px;   /* pills, small btns */
+  --lo-r-md:      10px;   /* inputs, secondary btns */
+  --lo-r-lg:      12px;   /* chips, settings rows */
+  --lo-r-card:    14px;   /* list cards */
+  --lo-r-hero:    18px;   /* hero cards */
+  --lo-r-window:  12px;
+  --lo-r-pill:   999px;
+
+  /* ---------- SHADOWS ---------- */
+  --lo-shadow-window: 0 24px 64px rgba(0, 0, 0, 0.18);
+  --lo-shadow-hero:   0 12px 32px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.08);
+  --lo-shadow-card:   0 4px 12px rgba(0, 0, 0, 0.10);
+  --lo-shadow-modal:  0 32px 80px rgba(0, 0, 0, 0.32);
+  --lo-shadow-toast:  0 12px 32px rgba(0, 0, 0, 0.22);
+  --lo-shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+  /* ---------- TIMING ---------- */
+  --lo-ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --lo-ease-in:    cubic-bezier(0.6, 0, 0.4, 0);
+  --lo-ease-inout: cubic-bezier(0.4, 0, 0.2, 1);
+  --lo-dur-fast:   120ms;
+  --lo-dur-mid:    250ms;
+  --lo-dur-slow:   450ms;
+}
+
+/* ---------- DARK MODE (planned, not v0) ----------
+   Override these for dark mode when implemented:
+   :root[data-theme="dark"] {
+     --lo-amex:    #0E3D2E;
+     --lo-chase:   #143F86;
+     --lo-marriott:#142540;
+     --lo-hyatt:   #4A2370;
+     --lo-desk:    #0A0A0A;
+     --lo-titlebar:#1A1A1A;
+     --lo-warm-white: #1A1A1A;
+     --lo-ink:     #F5F1E8;
+     --lo-ink-muted: #B0AEA5;
+     --lo-hairline: #2A2A2A;
+   }
+   ---------------------------------------------------- */

@@ -1,0 +1,657 @@
+/* ============================================================
+   LifeOps Components · v0.1 · 2026-04-30
+   Reusable component classes. Depends on lifeops-tokens.css.
+   See DESIGN.md §3 for component anatomies.
+
+   USAGE: @import "lifeops-tokens.css"; @import "lifeops-components.css";
+   Component classes are prefixed `lo-`. Modifiers use `lo-x--state`.
+   ============================================================ */
+
+/* ============================================================
+   1. RESET + DEFAULTS
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  font-family: var(--lo-font-text);
+  color: var(--lo-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   2. WINDOW CHROME
+   ============================================================ */
+.lo-window {
+  width: 1440px; height: 900px;
+  background: var(--lo-desk);
+  border-radius: var(--lo-r-window);
+  box-shadow: var(--lo-shadow-window);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.lo-titlebar {
+  height: 44px;
+  background: var(--lo-titlebar);
+  border-bottom: 1px solid var(--lo-hairline);
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; padding: 0 16px;
+  flex-shrink: 0;
+}
+.lo-traffic { display: flex; gap: 8px; align-items: center; }
+.lo-tl { width: 12px; height: 12px; border-radius: 50%; }
+.lo-tl--red    { background: #FF5F57; }
+.lo-tl--yellow { background: #FEBC2E; }
+.lo-tl--green  { background: #28C840; }
+.lo-title { font-size: 13px; font-weight: 500; color: var(--lo-ink); letter-spacing: 0.01em; }
+.lo-title-actions { display: flex; gap: 14px; justify-content: flex-end; align-items: center; color: var(--lo-ink-muted); }
+.lo-icon-btn {
+  background: transparent; border: 0; cursor: pointer; padding: 4px;
+  display: flex; color: var(--lo-ink-muted);
+  transition: color var(--lo-dur-fast);
+}
+.lo-icon-btn:hover { color: var(--lo-ink); }
+
+.lo-content {
+  flex: 1; padding: var(--lo-space-8) var(--lo-space-14) var(--lo-space-8);
+  display: flex; flex-direction: column; gap: var(--lo-space-8);
+  overflow: hidden;
+}
+
+/* ============================================================
+   3. SECTION LABELS
+   ============================================================ */
+.lo-section-label {
+  font-family: var(--lo-font-mono);
+  font-size: var(--lo-fs-h3);
+  font-weight: 700;
+  color: var(--lo-ink-muted);
+  letter-spacing: var(--lo-tracking-label);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   4. HERO CARD (focal screens)
+   ============================================================ */
+.lo-hero {
+  width: 720px; height: 360px;
+  background: var(--lo-amex);  /* override per screen */
+  color: var(--lo-card-text);
+  border-radius: var(--lo-r-hero);
+  padding: var(--lo-space-8) var(--lo-space-10);
+  box-shadow: var(--lo-shadow-hero);
+  display: flex; flex-direction: column; justify-content: space-between;
+  position: relative; overflow: hidden;
+}
+.lo-hero::before {
+  content: ""; position: absolute;
+  right: -120px; bottom: -120px;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  background: var(--lo-card-glow);
+  pointer-events: none;
+}
+.lo-hero__label {
+  font-family: var(--lo-font-mono); font-size: var(--lo-fs-h3);
+  font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; opacity: 0.85;
+}
+.lo-hero__mid { display: flex; align-items: baseline; justify-content: space-between; gap: var(--lo-space-8); }
+.lo-hero__countdown {
+  font-family: var(--lo-font-mono); font-weight: 700;
+  font-size: var(--lo-fs-mega); line-height: 1;
+  letter-spacing: var(--lo-tracking-tight);
+}
+.lo-hero__small { font-size: 56px; opacity: 0.85; margin-left: 4px; }
+.lo-hero__progress { display: flex; flex-direction: column; gap: 6px; min-width: 240px; }
+.lo-hero__amt {
+  font-family: var(--lo-font-mono); font-weight: 700;
+  font-size: var(--lo-fs-display); line-height: 1;
+  letter-spacing: var(--lo-tracking-tight);
+  display: flex; align-items: baseline; gap: 10px;
+}
+.lo-hero__currency { font-size: 56px; opacity: 0.78; margin-right: 2px; vertical-align: 8px; }
+.lo-hero__of {
+  font-family: var(--lo-font-mono); font-weight: 500;
+  font-size: 22px; opacity: 0.62; letter-spacing: 0;
+}
+.lo-hero__of strong { font-weight: 700; opacity: 0.85; }
+.lo-hero__hint {
+  font-family: var(--lo-font-mono); font-size: var(--lo-fs-mini);
+  letter-spacing: var(--lo-tracking-caps); text-transform: uppercase;
+  opacity: 0.75;
+  display: flex; justify-content: space-between;
+}
+.lo-hero__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--lo-space-6); }
+.lo-hero__merchant {
+  font-family: var(--lo-font-mono); font-weight: 700;
+  font-size: 28px; letter-spacing: var(--lo-tracking-caps);
+}
+.lo-hero__ledger {
+  font-family: var(--lo-font-mono); font-size: var(--lo-fs-meta);
+  letter-spacing: var(--lo-tracking-wide); opacity: 0.78;
+}
+.lo-hero__cta {
+  font-family: var(--lo-font-mono); font-size: 12px; font-weight: 700;
+  letter-spacing: var(--lo-tracking-caps);
+  padding: 10px 18px; border-radius: var(--lo-r-md);
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--lo-card-text);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  cursor: pointer;
+  transition: background var(--lo-dur-fast);
+}
+.lo-hero__cta:hover { background: rgba(255, 255, 255, 0.22); }
+
+/* ============================================================
+   5. CHIP (strip on dashboard)
+   ============================================================ */
+.lo-chip {
+  height: 116px;
+  border-radius: var(--lo-r-card);
+  padding: var(--lo-space-4) var(--lo-space-5);
+  color: var(--lo-card-text);
+  display: flex; flex-direction: column; justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: relative; overflow: hidden;
+}
+.lo-chip__top { display: flex; align-items: baseline; justify-content: space-between; gap: var(--lo-space-2); }
+.lo-chip__cd {
+  font-family: var(--lo-font-mono); font-weight: 700;
+  font-size: 28px; letter-spacing: var(--lo-tracking-snug);
+}
+.lo-chip__amt {
+  font-family: var(--lo-font-mono); font-weight: 700; font-size: 22px;
+}
+.lo-chip__currency { font-size: 13px; opacity: 0.75; margin-right: 1px; vertical-align: 1px; }
+.lo-chip__merchant {
+  font-family: var(--lo-font-text); font-weight: 600;
+  font-size: 13px; opacity: 0.95;
+}
+.lo-chip__prog {
+  font-family: var(--lo-font-mono); font-size: 9px;
+  letter-spacing: var(--lo-tracking-caps);
+  text-transform: uppercase; opacity: 0.7;
+}
+
+/* ============================================================
+   6. INVENTORY CARD (4-col grid)
+   ============================================================ */
+.lo-inv-card {
+  border-radius: var(--lo-r-card);
+  padding: var(--lo-space-4) var(--lo-space-5);
+  color: var(--lo-card-text);
+  display: flex; flex-direction: column; justify-content: space-between;
+  box-shadow: var(--lo-shadow-card);
+  position: relative; overflow: hidden;
+  height: 168px;
+}
+.lo-inv-card::before {
+  content: ""; position: absolute; right: -50px; bottom: -50px;
+  width: 140px; height: 140px; border-radius: 50%;
+  background: var(--lo-card-glow); pointer-events: none;
+}
+.lo-inv-card__top { display: flex; align-items: baseline; justify-content: space-between; gap: var(--lo-space-3); }
+.lo-inv-card__cd {
+  font-family: var(--lo-font-mono); font-weight: 700;
+  font-size: 36px; line-height: 1; letter-spacing: var(--lo-tracking-tight);
+}
+.lo-inv-card__cd--small { font-size: 26px; }
+.lo-inv-card__amt {
+  font-family: var(--lo-font-mono); font-weight: 700; font-size: 26px;
+}
+.lo-inv-card__amt-currency { font-size: 14px; opacity: 0.78; vertical-align: 4px; margin-right: 1px; }
+.lo-inv-card__mid { font-size: 13px; font-weight: 600; opacity: 0.95; }
+.lo-inv-card__bot { display: flex; align-items: center; justify-content: space-between; }
+.lo-inv-card__issuer {
+  font-family: var(--lo-font-mono); font-size: 9px;
+  letter-spacing: var(--lo-tracking-caps);
+  text-transform: uppercase; opacity: 0.7;
+}
+.lo-inv-card__status {
+  font-family: var(--lo-font-mono); font-size: 9px;
+  letter-spacing: var(--lo-tracking-wide);
+  text-transform: uppercase;
+  padding: 2px 7px; border-radius: 4px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.lo-inv-card--used { background: var(--lo-grey-card); }
+.lo-inv-card--used .lo-inv-card__cd,
+.lo-strike { text-decoration: line-through; opacity: 0.7; }
+.lo-inv-card--used .lo-inv-card__amt { opacity: 1; }
+
+/* ============================================================
+   7. STAT POD (translucent pill inside brand-color card)
+   ============================================================ */
+.lo-stat-pod {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--lo-r-md);
+  padding: var(--lo-space-3) var(--lo-space-4);
+}
+.lo-stat-pod__label {
+  font-family: var(--lo-font-mono); font-size: 9px;
+  letter-spacing: var(--lo-tracking-caps);
+  text-transform: uppercase;
+  opacity: 0.78;
+  margin-bottom: 4px;
+}
+.lo-stat-pod__value {
+  font-family: var(--lo-font-mono); font-weight: 700; font-size: 18px;
+}
+
+/* ============================================================
+   8. PROGRESS BAR & MINI-BAR
+   ============================================================ */
+.lo-bar {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+  position: relative;
+}
+.lo-bar__fill {
+  position: absolute; left: 0; top: 0; height: 100%;
+  background: rgba(245, 241, 232, 0.85);
+  border-radius: 3px;
+}
+/* On warm-white surfaces, override track color */
+.lo-bar--inverse { background: var(--lo-hairline); }
+.lo-bar--inverse .lo-bar__fill { background: var(--lo-amex); }
+
+.lo-mini-bar {
+  height: 3px; width: 110px;
+  background: var(--lo-hairline);
+  border-radius: 2px; position: relative;
+}
+.lo-mini-bar__fill {
+  position: absolute; left: 0; top: 0; height: 100%;
+  background: var(--lo-amex);
+  border-radius: 2px;
+}
+
+/* ============================================================
+   9. PILLS (filter chips, status tags)
+   ============================================================ */
+.lo-pill {
+  padding: 7px 14px;
+  border-radius: var(--lo-r-pill);
+  font-family: var(--lo-font-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--lo-ink-muted);
+  border: 1px solid var(--lo-hairline);
+  transition: all var(--lo-dur-fast);
+}
+.lo-pill--on,
+.lo-pill:hover { background: var(--lo-ink); color: var(--lo-card-text); border-color: var(--lo-ink); }
+
+/* ============================================================
+   10. TOGGLE
+   ============================================================ */
+.lo-toggle {
+  width: 44px; height: 26px;
+  background: var(--lo-amex);
+  border-radius: var(--lo-r-pill);
+  position: relative; cursor: pointer;
+  transition: background var(--lo-dur-fast);
+}
+.lo-toggle--off { background: #C8C2B5; }
+.lo-toggle__knob {
+  position: absolute; top: 2px; left: 22px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--lo-warm-white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  transition: left 150ms var(--lo-ease-out);
+}
+.lo-toggle--off .lo-toggle__knob { left: 2px; }
+
+/* ============================================================
+   11. SEGMENTED CONTROL
+   ============================================================ */
+.lo-seg {
+  display: inline-flex;
+  background: #EFECE3;
+  padding: 2px;
+  border-radius: var(--lo-r-md);
+}
+.lo-seg__opt {
+  padding: 6px 14px;
+  font-size: 12px; font-weight: 500;
+  cursor: pointer; border-radius: var(--lo-r-sm);
+  color: var(--lo-ink-muted);
+  transition: all var(--lo-dur-fast);
+}
+.lo-seg__opt--on {
+  background: var(--lo-warm-white);
+  color: var(--lo-ink);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================================
+   12. CHECKBOX
+   ============================================================ */
+.lo-check {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  border: 1px solid var(--lo-hairline);
+  background: var(--lo-warm-white);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.lo-check--on {
+  background: var(--lo-amex);
+  border-color: var(--lo-amex);
+}
+
+/* ============================================================
+   13. BUTTONS
+   ============================================================ */
+.lo-btn {
+  font-family: var(--lo-font-text);
+  font-size: 14px; font-weight: 600;
+  padding: 12px 22px;
+  border-radius: var(--lo-r-md);
+  border: 0; cursor: pointer;
+  transition: all var(--lo-dur-fast);
+}
+.lo-btn--primary {
+  background: var(--lo-amex);
+  color: var(--lo-card-text);
+}
+.lo-btn--primary:hover { background: #146245; }
+.lo-btn--secondary {
+  background: transparent;
+  color: var(--lo-ink-muted);
+  border: 1px solid var(--lo-hairline);
+}
+.lo-btn--secondary:hover { color: var(--lo-ink); border-color: var(--lo-ink-muted); }
+.lo-btn--link {
+  background: transparent;
+  color: var(--lo-amex);
+  text-decoration: underline;
+  padding: 0;
+  font-size: 13px;
+}
+
+/* ============================================================
+   14. MODAL
+   ============================================================ */
+.lo-modal-bg {
+  position: absolute; inset: 0;
+  background: rgba(15, 15, 12, 0.42);
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+.lo-modal {
+  position: absolute;
+  left: 50%; top: 44%;
+  transform: translate(-50%, -50%);
+  width: 560px;
+  background: var(--lo-warm-white);
+  border-radius: 16px;
+  box-shadow: var(--lo-shadow-modal);
+  padding: var(--lo-space-6) var(--lo-space-7);
+  display: flex; flex-direction: column; gap: var(--lo-space-5);
+}
+.lo-modal__head { display: flex; align-items: center; justify-content: space-between; }
+.lo-modal__pre {
+  font-family: var(--lo-font-mono); font-size: 11px;
+  letter-spacing: var(--lo-tracking-label);
+  text-transform: uppercase;
+  color: var(--lo-amex); font-weight: 700;
+}
+.lo-modal__close { color: var(--lo-ink-muted); cursor: pointer; }
+
+.lo-modal-card {
+  background: var(--lo-amex);
+  border-radius: var(--lo-r-lg);
+  padding: 18px 22px;
+  color: var(--lo-card-text);
+  position: relative; overflow: hidden;
+}
+.lo-modal-card::before {
+  content: ""; position: absolute; right: -60px; bottom: -60px;
+  width: 180px; height: 180px; border-radius: 50%;
+  background: var(--lo-card-glow);
+}
+
+/* ============================================================
+   15. STEPPER + SLIDER
+   ============================================================ */
+.lo-stepper {
+  background: var(--lo-warm-tint);
+  border-radius: var(--lo-r-lg);
+  padding: var(--lo-space-4);
+  display: flex; flex-direction: column; gap: var(--lo-space-3);
+}
+.lo-stepper__head {
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--lo-font-mono); font-size: 11px;
+  letter-spacing: var(--lo-tracking-wide);
+}
+.lo-stepper__l {
+  color: var(--lo-ink-muted);
+  letter-spacing: var(--lo-tracking-label);
+  text-transform: uppercase; font-weight: 700;
+}
+.lo-stepper__row { display: flex; align-items: center; gap: 14px; }
+.lo-step-btn {
+  width: 40px; height: 40px;
+  border-radius: var(--lo-r-md);
+  border: 1px solid var(--lo-hairline);
+  background: var(--lo-warm-white);
+  font-family: var(--lo-font-mono);
+  font-size: 18px; font-weight: 700;
+  color: var(--lo-ink); cursor: pointer;
+}
+.lo-step-display {
+  flex: 1; text-align: center;
+  font-family: var(--lo-font-mono); font-weight: 700;
+  font-size: 36px; color: var(--lo-ink);
+}
+.lo-step-display__currency {
+  font-size: 22px; opacity: 0.7; vertical-align: 4px;
+}
+.lo-slider {
+  height: 4px;
+  background: var(--lo-hairline);
+  border-radius: 2px;
+  position: relative;
+}
+.lo-slider__fill {
+  position: absolute; left: 0; top: 0; height: 100%;
+  background: var(--lo-amex);
+  border-radius: 2px;
+}
+.lo-slider__knob {
+  position: absolute; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--lo-warm-white);
+  border: 2px solid var(--lo-amex);
+}
+.lo-stepper__hint {
+  font-size: 12px; color: var(--lo-ink-muted);
+}
+
+/* ============================================================
+   16. TOAST
+   ============================================================ */
+.lo-toast {
+  position: absolute;
+  bottom: var(--lo-space-8);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--lo-ink);
+  color: var(--lo-card-text);
+  border-radius: var(--lo-r-lg);
+  padding: var(--lo-space-3) var(--lo-space-5);
+  display: flex; align-items: center; gap: var(--lo-space-4);
+  box-shadow: var(--lo-shadow-toast);
+  width: 480px;
+}
+.lo-toast__check {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--lo-amex);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.lo-toast__text { flex: 1; }
+.lo-toast__title { font-weight: 600; font-size: 14px; }
+.lo-toast__sub {
+  font-family: var(--lo-font-mono); font-size: var(--lo-fs-mini);
+  letter-spacing: var(--lo-tracking-wide);
+  text-transform: uppercase;
+  opacity: 0.65; margin-top: 1px;
+}
+.lo-toast__undo {
+  font-family: var(--lo-font-mono); font-size: 11px;
+  font-weight: 700; letter-spacing: var(--lo-tracking-wide);
+  text-transform: uppercase;
+  color: var(--lo-card-text);
+  border: 1px solid rgba(245, 241, 232, 0.32);
+  padding: 6px 12px; border-radius: var(--lo-r-sm);
+  cursor: pointer; background: transparent;
+}
+.lo-toast__timer {
+  font-family: var(--lo-font-mono); font-size: 11px; opacity: 0.7;
+}
+.lo-toast__bar {
+  position: absolute; left: 0; bottom: 0;
+  height: 2px; background: var(--lo-amex);
+  border-radius: 0 0 var(--lo-r-lg) var(--lo-r-lg);
+  /* width animated from 100% → 0% over 10s in JS */
+}
+
+/* ============================================================
+   17. TABS (settings sheet)
+   ============================================================ */
+.lo-tabs {
+  display: flex; gap: 6px;
+  padding: 16px 24px 0;
+  border-bottom: 1px solid var(--lo-hairline);
+  background: var(--lo-warm-white);
+}
+.lo-tab {
+  padding: 10px 18px 12px;
+  font-size: 13px; font-weight: 500;
+  color: var(--lo-ink-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all var(--lo-dur-fast);
+}
+.lo-tab--on {
+  color: var(--lo-ink);
+  border-bottom-color: var(--lo-amex);
+  font-weight: 600;
+}
+
+/* ============================================================
+   18. SETTINGS ROW
+   ============================================================ */
+.lo-settings-section h2 {
+  font-size: 14px; font-weight: 600;
+  color: var(--lo-ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+.lo-settings-row {
+  display: grid;
+  grid-template-columns: 240px 1fr auto;
+  gap: var(--lo-space-4);
+  align-items: center;
+  padding: var(--lo-space-3) 0;
+  border-top: 1px solid var(--lo-hairline);
+}
+.lo-settings-row:first-of-type { border-top: 0; padding-top: 4px; }
+.lo-settings-row__label { font-size: 13px; font-weight: 500; }
+.lo-settings-row__desc { font-size: 11px; color: var(--lo-ink-muted); margin-top: 2px; }
+
+/* ============================================================
+   19. PATH FIELD
+   ============================================================ */
+.lo-path-field {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  background: var(--lo-warm-tint);
+  border: 1px solid var(--lo-hairline);
+  border-radius: var(--lo-r-md);
+  font-family: var(--lo-font-mono);
+  font-size: 12px; color: var(--lo-ink);
+}
+
+/* ============================================================
+   20. INVENTORY ACCORDION FOOT
+   ============================================================ */
+.lo-inv-foot {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: var(--lo-r-lg);
+  padding: 18px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: var(--lo-shadow-subtle);
+  border: 1px solid var(--lo-hairline);
+}
+.lo-inv-foot__text {
+  display: flex; align-items: baseline; gap: 22px;
+  font-family: var(--lo-font-mono); font-size: 13px;
+  color: var(--lo-ink); letter-spacing: 0.04em;
+}
+.lo-inv-foot__text strong { font-weight: 700; }
+.lo-sep { color: var(--lo-ink-faint); }
+.lo-chev { color: var(--lo-ink-muted); display: flex; }
+
+/* ============================================================
+   21. BREADCRUMB
+   ============================================================ */
+.lo-crumbs {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--lo-font-mono); font-size: 11px;
+  color: var(--lo-ink-muted);
+  letter-spacing: var(--lo-tracking-wide);
+}
+.lo-crumbs a { color: var(--lo-ink-muted); text-decoration: none; }
+.lo-crumbs a.lo-crumbs__now { color: var(--lo-ink); font-weight: 700; }
+.lo-crumbs__arr { color: var(--lo-ink-faint); }
+
+/* ============================================================
+   22. SECTION (warm-white panel)
+   ============================================================ */
+.lo-section {
+  background: var(--lo-warm-white);
+  border: 1px solid var(--lo-hairline);
+  border-radius: var(--lo-r-card);
+  padding: var(--lo-space-4) var(--lo-space-5);
+}
+.lo-section__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding-bottom: var(--lo-space-3);
+}
+.lo-section__head h2 { font-size: 15px; font-weight: 600; }
+.lo-section__count {
+  font-family: var(--lo-font-mono); font-size: 11px;
+  color: var(--lo-ink-muted); letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   23. UTILITY
+   ============================================================ */
+.lo-currency { font-size: 14px; opacity: 0.78; vertical-align: 4px; margin-right: 1px; }
+.lo-small    { font-size: 0.6em; opacity: 0.78; }
+.lo-faint    { color: var(--lo-ink-faint); }
+.lo-muted    { color: var(--lo-ink-muted); }
+.lo-mono     { font-family: var(--lo-font-mono); }
+
+/* ============================================================
+   24. MOTION (respect prefers-reduced-motion)
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
