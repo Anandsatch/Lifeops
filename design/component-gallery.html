@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LifeOps Components Gallery · v0.1</title>
+<link rel="stylesheet" href="lifeops-tokens.css">
+<link rel="stylesheet" href="lifeops-components.css">
+<style>
+  body { background: var(--lo-desk); padding: 48px 56px; }
+  .gallery { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+  .gallery h1 { font-size: 32px; font-weight: 600; letter-spacing: -0.018em; }
+  .gallery h1 .ver { font-family: var(--lo-font-mono); font-size: 12px; color: var(--lo-ink-muted); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; margin-left: 16px; vertical-align: 8px; }
+  .group { background: var(--lo-warm-white); border: 1px solid var(--lo-hairline); border-radius: var(--lo-r-card); padding: 28px 32px; display: flex; flex-direction: column; gap: 20px; }
+  .group h2 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+  .group p { font-size: 13px; color: var(--lo-ink-muted); line-height: 1.6; max-width: 720px; }
+  .demo { background: var(--lo-desk); padding: 32px; border-radius: var(--lo-r-md); display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+  .demo--row { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+  .sw { display: flex; flex-direction: column; gap: 4px; }
+  .sw__chip { height: 56px; border-radius: 8px; }
+  .sw__name { font-family: var(--lo-font-mono); font-size: 11px; font-weight: 700; }
+  .sw__hex { font-family: var(--lo-font-mono); font-size: 10px; color: var(--lo-ink-muted); }
+  .type-row { display: flex; align-items: baseline; gap: 24px; padding: 12px 0; border-top: 1px solid var(--lo-hairline); }
+  .type-row:first-of-type { border-top: 0; }
+  .type-row .label { font-family: var(--lo-font-mono); font-size: 10px; color: var(--lo-ink-muted); letter-spacing: 0.18em; text-transform: uppercase; min-width: 140px; }
+  .code { font-family: var(--lo-font-mono); font-size: 11px; color: var(--lo-ink-faint); margin-top: 8px; }
+  .pin { display: flex; align-items: center; gap: 8px; font-family: var(--lo-font-mono); font-size: 10px; color: var(--lo-ink-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .pin::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--lo-amex); }
+</style>
+</head>
+<body>
+
+<div class="gallery">
+
+<header>
+  <h1>LifeOps Components<span class="ver">v0.1</span></h1>
+  <p style="font-size: 14px; color: var(--lo-ink-muted); max-width: 720px; line-height: 1.6;">Living visual reference. Every class shown here is defined in <code>lifeops-components.css</code> and documented in <code>DESIGN.md</code>. Use this page as your component library when building new screens.</p>
+</header>
+
+<!-- ===== COLORS ===== -->
+<section class="group">
+  <h2>1. Brand colors (card fills)</h2>
+  <p>Always full saturation. Never as text on white. Card fill, accent stripe, or legend swatch only.</p>
+  <div class="demo">
+    <div class="swatches" style="width: 100%;">
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-amex);"></div><div class="sw__name">--lo-amex</div><div class="sw__hex">#0F4C3A</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-chase);"></div><div class="sw__name">--lo-chase</div><div class="sw__hex">#1A4FA8</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-marriott);"></div><div class="sw__name">--lo-marriott</div><div class="sw__hex">#1A2D4D</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-hyatt);"></div><div class="sw__name">--lo-hyatt</div><div class="sw__hex">#5C2D87</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-clear);"></div><div class="sw__name">--lo-clear</div><div class="sw__hex">#003DA5</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-delta);"></div><div class="sw__name">--lo-delta</div><div class="sw__hex">#2A2A2A</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-ba);"></div><div class="sw__name">--lo-ba</div><div class="sw__hex">#2A6DB8</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-grey-card);"></div><div class="sw__name">--lo-grey-card</div><div class="sw__hex">#6F6B62</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-red);"></div><div class="sw__name">--lo-red</div><div class="sw__hex">#B43A3A</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SURFACES ===== -->
+<section class="group">
+  <h2>2. Surfaces & ink</h2>
+  <p>Warm desk surface holds the app together. Ink hierarchy gives 3 levels of read priority.</p>
+  <div class="demo">
+    <div class="swatches" style="width: 100%;">
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-desk); border: 1px solid var(--lo-hairline);"></div><div class="sw__name">--lo-desk</div><div class="sw__hex">#F0EDE6</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-titlebar); border: 1px solid var(--lo-hairline);"></div><div class="sw__name">--lo-titlebar</div><div class="sw__hex">#FAFAF7</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-warm-white); border: 1px solid var(--lo-hairline);"></div><div class="sw__name">--lo-warm-white</div><div class="sw__hex">#FFFFFF</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-warm-tint); border: 1px solid var(--lo-hairline);"></div><div class="sw__name">--lo-warm-tint</div><div class="sw__hex">#F8F6EE</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-ink);"></div><div class="sw__name">--lo-ink</div><div class="sw__hex">#1A1A1A</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-ink-muted);"></div><div class="sw__name">--lo-ink-muted</div><div class="sw__hex">#6A6A6A</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-ink-faint);"></div><div class="sw__name">--lo-ink-faint</div><div class="sw__hex">#B0AEA5</div></div>
+      <div class="sw"><div class="sw__chip" style="background: var(--lo-hairline);"></div><div class="sw__name">--lo-hairline</div><div class="sw__hex">#E0DCD2</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TYPOGRAPHY ===== -->
+<section class="group">
+  <h2>3. Typography scale</h2>
+  <p>Mono carries data and the brand. Sans carries prose. Never invent new sizes.</p>
+  <div class="demo" style="align-items: stretch;">
+    <div class="type-row"><span class="label">--lo-fs-mega · 112</span><span style="font-family: var(--lo-font-mono); font-weight: 700; font-size: 112px; line-height: 1;">3d 04h</span></div>
+    <div class="type-row"><span class="label">--lo-fs-display · 96</span><span style="font-family: var(--lo-font-mono); font-weight: 700; font-size: 96px; line-height: 1;">$7</span></div>
+    <div class="type-row"><span class="label">--lo-fs-headline · 56</span><span style="font-size: 56px; font-weight: 600; line-height: 1.05; letter-spacing: -0.02em;">Your wallet, in context.</span></div>
+    <div class="type-row"><span class="label">--lo-fs-h1 · 26</span><span style="font-size: 26px; font-weight: 600;">Loyalty status</span></div>
+    <div class="type-row"><span class="label">--lo-fs-h2 · 15</span><span style="font-size: 15px; font-weight: 600;">Active credits</span></div>
+    <div class="type-row"><span class="label">--lo-fs-h3 · 11</span><span class="lo-section-label">Expiring next — top priority</span></div>
+    <div class="type-row"><span class="label">--lo-fs-body · 14</span><span style="font-size: 14px;">Loyalty status, expiring perks, transferable points pulled from a single local YAML file.</span></div>
+    <div class="type-row"><span class="label">--lo-fs-meta · 11</span><span style="font-family: var(--lo-font-mono); font-size: 11px; color: var(--lo-ink-muted);">Apr 15 · $3 at Grubhub</span></div>
+    <div class="type-row"><span class="label">--lo-fs-mini · 10</span><span style="font-family: var(--lo-font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lo-ink-muted);">monthly · resets dec 31</span></div>
+  </div>
+</section>
+
+<!-- ===== HERO CARD ===== -->
+<section class="group">
+  <h2>4. Hero card <span class="pin">.lo-hero</span></h2>
+  <p>The single focal element on dashboard, modal, and card-detail screens. Always standalone — never stacked. Width 720, height 360, generous padding, mono digits dominant.</p>
+  <div class="demo">
+    <div class="lo-hero">
+      <div class="lo-hero__label">Amex Gold · Monthly dining credit</div>
+      <div class="lo-hero__mid">
+        <div class="lo-hero__countdown">3d<span class="lo-hero__small"> 04h</span></div>
+        <div class="lo-hero__progress">
+          <div class="lo-hero__amt"><span class="lo-hero__currency">$</span>7<span class="lo-hero__of">left of <strong>$10</strong></span></div>
+          <div class="lo-bar"><div class="lo-bar__fill" style="width: 70%;"></div></div>
+          <div class="lo-hero__hint"><span>$3 used this cycle</span><span>resets Apr 30</span></div>
+        </div>
+      </div>
+      <div class="lo-hero__foot">
+        <div>
+          <div class="lo-hero__merchant">GRUBHUB</div>
+          <div class="lo-hero__ledger">Last used $3 · Apr 15 · view ledger →</div>
+        </div>
+        <button class="lo-hero__cta">LOG SPEND  →</button>
+      </div>
+    </div>
+    <div class="code">&lt;div class="lo-hero" style="background: var(--lo-amex);"&gt; ... &lt;/div&gt;</div>
+  </div>
+</section>
+
+<!-- ===== CHIPS ===== -->
+<section class="group">
+  <h2>5. Brand chip <span class="pin">.lo-chip</span></h2>
+  <p>Strip element on dashboard. Each chip is one upcoming credit; no labels duplicate. 116-140px tall.</p>
+  <div class="demo demo--row" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;">
+    <div class="lo-chip" style="background: var(--lo-chase);">
+      <div class="lo-chip__top"><span class="lo-chip__cd">12d</span><span class="lo-chip__amt"><span class="lo-chip__currency">$</span>25</span></div>
+      <div><div class="lo-chip__merchant">DoorDash</div><div class="lo-chip__prog">Chase Sapphire</div></div>
+    </div>
+    <div class="lo-chip" style="background: var(--lo-marriott);">
+      <div class="lo-chip__top"><span class="lo-chip__cd">18d</span><span class="lo-chip__amt"><span class="lo-chip__currency">$</span>50</span></div>
+      <div><div class="lo-chip__merchant">Free night cert</div><div class="lo-chip__prog">Marriott Bonvoy</div></div>
+    </div>
+    <div class="lo-chip" style="background: var(--lo-hyatt);">
+      <div class="lo-chip__top"><span class="lo-chip__cd">22d</span><span class="lo-chip__amt"><span class="lo-chip__currency">$</span>75</span></div>
+      <div><div class="lo-chip__merchant">Park Hyatt</div><div class="lo-chip__prog">Hyatt Globalist</div></div>
+    </div>
+    <div class="lo-chip" style="background: var(--lo-amex);">
+      <div class="lo-chip__top"><span class="lo-chip__cd">25d</span><span class="lo-chip__amt"><span class="lo-chip__currency">$</span>120</span></div>
+      <div><div class="lo-chip__merchant">Delta airline fee</div><div class="lo-chip__prog">Amex Platinum</div></div>
+    </div>
+    <div class="lo-chip" style="background: var(--lo-amex);">
+      <div class="lo-chip__top"><span class="lo-chip__cd">28d</span><span class="lo-chip__amt"><span class="lo-chip__currency">$</span>155</span></div>
+      <div><div class="lo-chip__merchant">Equinox</div><div class="lo-chip__prog">Amex Plat wellness</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INVENTORY CARDS ===== -->
+<section class="group">
+  <h2>6. Inventory card <span class="pin">.lo-inv-card</span></h2>
+  <p>4-col grid item. 168px tall. Used variant uses grey-brown fill + strikethrough on label, never opacity-fades the dollar amount.</p>
+  <div class="demo">
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%;">
+      <div class="lo-inv-card" style="background: var(--lo-amex);">
+        <div class="lo-inv-card__top"><div class="lo-inv-card__cd">3d <span style="font-size:18px; opacity:0.75;">04h</span></div><div class="lo-inv-card__amt"><span class="lo-inv-card__amt-currency">$</span>7</div></div>
+        <div class="lo-inv-card__mid">Grubhub · Dining</div>
+        <div class="lo-inv-card__bot"><span class="lo-inv-card__issuer">Amex Gold</span><span class="lo-inv-card__status">Monthly</span></div>
+      </div>
+      <div class="lo-inv-card" style="background: var(--lo-chase);">
+        <div class="lo-inv-card__top"><div class="lo-inv-card__cd">12d</div><div class="lo-inv-card__amt"><span class="lo-inv-card__amt-currency">$</span>25</div></div>
+        <div class="lo-inv-card__mid">DoorDash credit</div>
+        <div class="lo-inv-card__bot"><span class="lo-inv-card__issuer">Chase Sapphire</span><span class="lo-inv-card__status">Monthly</span></div>
+      </div>
+      <div class="lo-inv-card lo-inv-card--used">
+        <div class="lo-inv-card__top"><div class="lo-inv-card__cd lo-inv-card__cd--small lo-strike">Used</div><div class="lo-inv-card__amt"><span class="lo-inv-card__amt-currency">$</span>15</div></div>
+        <div class="lo-inv-card__mid">Uber Cash</div>
+        <div class="lo-inv-card__bot"><span class="lo-inv-card__issuer">Amex Gold</span><span class="lo-inv-card__status">Monthly</span></div>
+      </div>
+      <div class="lo-inv-card" style="background: var(--lo-amex);">
+        <div class="lo-inv-card__top"><div class="lo-inv-card__cd lo-inv-card__cd--small">Annual</div><div class="lo-inv-card__amt"><span class="lo-inv-card__amt-currency">$</span>200</div></div>
+        <div class="lo-inv-card__mid">Hotel collection credit</div>
+        <div class="lo-inv-card__bot"><span class="lo-inv-card__issuer">Amex Platinum</span><span class="lo-inv-card__status">Resets Dec 31</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STAT POD ===== -->
+<section class="group">
+  <h2>7. Stat pod <span class="pin">.lo-stat-pod</span></h2>
+  <p>Translucent pill inside a brand-color card. Replaces the stack-behind anti-pattern.</p>
+  <div class="demo" style="background: var(--lo-marriott); border-radius: 14px; padding: 28px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%;">
+      <div class="lo-stat-pod"><div class="lo-stat-pod__label">Suite night awards</div><div class="lo-stat-pod__value" style="color: var(--lo-card-text);">5 / 5 unused</div></div>
+      <div class="lo-stat-pod"><div class="lo-stat-pod__label">Free-night cert</div><div class="lo-stat-pod__value" style="color: var(--lo-card-text);">1 · cat 50k</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROGRESS BARS ===== -->
+<section class="group">
+  <h2>8. Progress bar / mini-bar <span class="pin">.lo-bar / .lo-mini-bar</span></h2>
+  <p>Shows partial usage state. Cream on brand-color cards, brand-color on warm-white surfaces.</p>
+  <div class="demo">
+    <div style="background: var(--lo-amex); padding: 24px; border-radius: 14px; width: 320px;">
+      <div style="font-family: var(--lo-font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lo-card-text); opacity: 0.8; margin-bottom: 8px;">On brand card</div>
+      <div class="lo-bar"><div class="lo-bar__fill" style="width: 70%;"></div></div>
+    </div>
+    <div style="background: var(--lo-warm-white); padding: 24px; border-radius: 14px; width: 320px; border: 1px solid var(--lo-hairline);">
+      <div style="font-family: var(--lo-font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lo-ink-muted); margin-bottom: 8px;">On warm-white</div>
+      <div class="lo-bar lo-bar--inverse"><div class="lo-bar__fill" style="width: 62%;"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PILLS ===== -->
+<section class="group">
+  <h2>9. Filter pills <span class="pin">.lo-pill</span></h2>
+  <div class="demo demo--row" style="gap: 6px;">
+    <span class="lo-pill lo-pill--on">All</span>
+    <span class="lo-pill">Expiring soon</span>
+    <span class="lo-pill">This cycle</span>
+    <span class="lo-pill">Annual</span>
+    <span class="lo-pill">Used</span>
+  </div>
+</section>
+
+<!-- ===== TOGGLES + SEG + CHECK ===== -->
+<section class="group">
+  <h2>10. Form controls <span class="pin">.lo-toggle / .lo-seg / .lo-check</span></h2>
+  <div class="demo demo--row" style="gap: 32px;">
+    <div style="display: flex; align-items: center; gap: 10px;"><div class="lo-toggle"><div class="lo-toggle__knob"></div></div><span style="font-size: 13px;">On</span></div>
+    <div style="display: flex; align-items: center; gap: 10px;"><div class="lo-toggle lo-toggle--off"><div class="lo-toggle__knob"></div></div><span style="font-size: 13px;">Off</span></div>
+    <div class="lo-seg"><span class="lo-seg__opt lo-seg__opt--on">System</span><span class="lo-seg__opt">Light</span><span class="lo-seg__opt">Dark</span></div>
+    <div style="display: flex; align-items: center; gap: 10px;"><div class="lo-check lo-check--on"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#F5F1E8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span style="font-size: 13px;">Checked</span></div>
+    <div style="display: flex; align-items: center; gap: 10px;"><div class="lo-check"></div><span style="font-size: 13px;">Unchecked</span></div>
+  </div>
+</section>
+
+<!-- ===== BUTTONS ===== -->
+<section class="group">
+  <h2>11. Buttons <span class="pin">.lo-btn / .lo-btn--primary / .lo-btn--secondary / .lo-btn--link</span></h2>
+  <div class="demo demo--row" style="gap: 12px;">
+    <button class="lo-btn lo-btn--primary">Log $3 spend →</button>
+    <button class="lo-btn lo-btn--secondary">Cancel</button>
+    <a class="lo-btn lo-btn--link">Or paste your own YAML →</a>
+  </div>
+</section>
+
+<!-- ===== TOAST ===== -->
+<section class="group">
+  <h2>12. Toast <span class="pin">.lo-toast</span></h2>
+  <p>Confirms a delta + remaining state. Includes 10s undo window with depleting bar.</p>
+  <div class="demo" style="position: relative; min-height: 100px;">
+    <div class="lo-toast" style="position: relative; bottom: auto; left: auto; transform: none;">
+      <div class="lo-toast__check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F5F1E8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="lo-toast__text">
+        <div class="lo-toast__title">Logged $3 spend · $4 left this cycle</div>
+        <div class="lo-toast__sub">Amex Gold · Monthly dining</div>
+      </div>
+      <button class="lo-toast__undo">Undo</button>
+      <span class="lo-toast__timer">10s</span>
+      <div class="lo-toast__bar" style="width: 70%;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TABS ===== -->
+<section class="group">
+  <h2>13. Tabs <span class="pin">.lo-tabs</span></h2>
+  <div class="demo" style="padding: 0;">
+    <div class="lo-tabs" style="width: 100%; padding: 16px 24px 0; background: var(--lo-warm-white); border-radius: 12px 12px 0 0;">
+      <span class="lo-tab lo-tab--on">General</span>
+      <span class="lo-tab">Sources</span>
+      <span class="lo-tab">Privacy</span>
+      <span class="lo-tab">Skill</span>
+      <span class="lo-tab">About</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BREADCRUMB ===== -->
+<section class="group">
+  <h2>14. Breadcrumb <span class="pin">.lo-crumbs</span></h2>
+  <div class="demo">
+    <div class="lo-crumbs">
+      <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></a>
+      <a>Cards</a>
+      <span class="lo-crumbs__arr">/</span>
+      <a class="lo-crumbs__now">Amex Gold</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INVENTORY ACCORDION ===== -->
+<section class="group">
+  <h2>15. Inventory accordion footer <span class="pin">.lo-inv-foot</span></h2>
+  <div class="demo">
+    <div class="lo-inv-foot" style="width: 100%;">
+      <div class="lo-inv-foot__text">
+        <strong>Inventory</strong>
+        <span class="lo-sep">·</span>
+        <span>12 cards</span>
+        <span class="lo-sep">·</span>
+        <span>4 status programs</span>
+        <span class="lo-sep">·</span>
+        <span style="color: var(--lo-ink-muted);">Updated today</span>
+      </div>
+      <div class="lo-chev">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PATH FIELD ===== -->
+<section class="group">
+  <h2>16. Path field <span class="pin">.lo-path-field</span></h2>
+  <div class="demo">
+    <div class="lo-path-field"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> ~/.personal-context.yaml</div>
+  </div>
+</section>
+
+<footer style="text-align: center; padding: 32px 0; font-family: var(--lo-font-mono); font-size: 11px; color: var(--lo-ink-faint); letter-spacing: 0.06em;">
+  LIFEOPS DESIGN SYSTEM v0.1 · 2026-04-30 · See DESIGN.md for full spec
+</footer>
+
+</div>
+
+</body>
+</html>

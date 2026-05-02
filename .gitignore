@@ -1,0 +1,76 @@
+# Conductor workspace artifacts (per Conductor convention)
+.context/
+.playwright-mcp/
+
+# Working screenshots from design exploration / QA passes
+# (real design assets live in design/, mockup PNGs are kept in ~/.gstack/projects/)
+*.png
+!design/**/*.png
+
+# Node / pnpm
+node_modules/
+dist/
+build/
+.next/
+out/
+.cache/
+.parcel-cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Bun
+bun.lockb
+.bun-cache/
+
+# Tauri / Rust
+src-tauri/target/
+target/
+Cargo.lock.bak
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local env / secrets
+.env
+.env.local
+.env.*.local
+*.p8
+*.p12
+*.pem
+
+# Test outputs
+coverage/
+.nyc_output/
+
+# OS / temp
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# tauri-action build artifacts
+*.dmg
+*.app
+*.zip
+release/
