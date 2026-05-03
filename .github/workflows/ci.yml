@@ -42,6 +42,13 @@ jobs:
       - name: Install workspace deps
         run: pnpm install --frozen-lockfile
 
+      # Build packages first so cross-package TS lookups resolve via the
+      # `types`/`main` fields in dist/. Without this, packages that depend
+      # on @lifeops/schema (e.g. @lifeops/context-io) fail typecheck with
+      # TS2307 because dist/index.d.ts has not been emitted yet.
+      - name: Build packages
+        run: pnpm -r --filter './packages/*' run build
+
       - name: Typecheck (all workspaces)
         run: pnpm -r run typecheck
 
