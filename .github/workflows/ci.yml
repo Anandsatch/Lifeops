@@ -1,0 +1,56 @@
+# LifeOps fast-feedback CI gate.
+#
+# Runs on every push + every PR to main. Ubuntu (cheap, no Tauri/Rust build).
+# The heavy macos-14 build only runs in release.yml on tag push.
+#
+# Security: this workflow does NOT consume attacker-controllable inputs
+# (no github.event.*, github.head_ref, github.event.commits.*.message, etc).
+
+name: ci
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        # Version is pinned via "packageManager" in package.json (pnpm@9.15.9).
+        # Specifying `version:` here too triggers ERR_PNPM_BAD_PM_VERSION in
+        # pnpm/action-setup@v4. Single source of truth = package.json.
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: pnpm
+
+      - name: Install workspace deps
+        run: pnpm install --frozen-lockfile
+
+      # Build packages first so cross-package TS lookups resolve via the
+      # `types`/`main` fields in dist/. Without this, packages that depend
+      # on @lifeops/schema (e.g. @lifeops/context-io) fail typecheck with
+      # TS2307 because dist/index.d.ts has not been emitted yet.
+      - name: Build packages
+        run: pnpm -r --filter './packages/*' run build
+
+      - name: Typecheck (all workspaces)
+        run: pnpm -r run typecheck
+
+      - name: Test (all workspaces)
+        run: pnpm -r run test

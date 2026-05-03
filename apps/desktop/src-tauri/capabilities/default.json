@@ -1,0 +1,19 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Default capability for the LifeOps desktop window. Sidecar exec permission is wired now so E3-T9 can drop in the real `pc` binary without revisiting capabilities.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "binaries/pc",
+          "sidecar": true,
+          "args": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+#!/bin/sh
+# E1-T6 SIDECAR STUB. Replaced by the real Bun-compiled `pc` binary in E3-T9.
+# Tauri requires this file to exist (with the <name>-<target-triple> suffix)
+# at build time so the bundler can copy it into LifeOps.app/Contents/Resources/.
+#
+# Real binary will be produced by `bun build apps/cli/src/pc.ts --compile`
+# and dropped into this exact path before `tauri build`.
+echo '{"sidecar":"stub","ticket":"E1-T6","note":"replace via E3-T9"}'
+exit 0

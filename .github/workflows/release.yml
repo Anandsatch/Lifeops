@@ -1,0 +1,146 @@
+# LifeOps release pipeline.
+#
+# Tag-triggered builds an .app + .dmg for macOS Apple Silicon (arm64).
+#
+# === SIGNING / NOTARIZATION (read RELEASE.md for the full flip story) ===
+#
+# Sprint 1 + 2 ship UNSIGNED per spec §P9 — Apple Developer Program enrollment
+# is intentionally deferred to Sprint 3 launch gate. The notarize plumbing is
+# wired here unconditionally; tauri-action treats empty APPLE_* env vars as
+# "skip codesign + skip notarize" automatically. So this YAML is identical
+# Sprint-1 vs Sprint-3 — flipping to signed + notarized requires only adding
+# the seven GitHub Secrets listed in RELEASE.md, no workflow edits.
+#
+# === RUNNER ===
+#
+# macos-14 is GitHub's Apple-Silicon-native runner. Spec mandates arm64-only
+# (no x86_64) so there is no matrix here.
+#
+# === SECURITY ===
+#
+# This workflow does NOT consume any attacker-controllable inputs (no
+# github.event.issue.*, github.event.pull_request.*, github.head_ref,
+# github.event.commits.*.message, etc). Only github.ref / github.ref_name /
+# secrets.* are interpolated, which are not user-controllable.
+
+name: release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write # required for tauri-action to create/update the GitHub Release
+
+jobs:
+  build-macos-arm64:
+    runs-on: macos-14
+    timeout-minutes: 45
+
+    # Hoist secrets into job-level env so we can reference them in step `if:`
+    # expressions (GHA does not allow `secrets.*` directly in `if`). When the
+    # secret is unset, `env.APPLE_CERTIFICATE` is the empty string, which is
+    # the explicit signal we use to gate the unsigned vs. signed code paths.
+    env:
+      APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+      APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+      APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        # Version is pinned via "packageManager" in package.json (pnpm@9.15.9).
+        # Specifying `version:` here too triggers ERR_PNPM_BAD_PM_VERSION in
+        # pnpm/action-setup@v4. Single source of truth = package.json.
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: pnpm
+
+      - name: Install Rust (stable, aarch64-apple-darwin)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin
+
+      - name: Cache Cargo registry + target
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: apps/desktop/src-tauri -> target
+
+      - name: Install workspace deps
+        run: pnpm install --frozen-lockfile
+
+      # NOTE: In E3-T9 we will insert a `bun build apps/cli/src/pc.ts ...`
+      # step here that overwrites the sidecar stub at
+      # apps/desktop/src-tauri/binaries/pc-aarch64-apple-darwin with the real
+      # Bun-compiled `pc` executable. For W1 the stub is fine — Tauri just
+      # needs *some* file at that path so the bundler can copy it in.
+
+      # === Two explicit build paths ===
+      #
+      # We split unsigned vs. signed into two `if:`-gated steps rather than
+      # relying on tauri-action's undocumented behavior with empty APPLE_*
+      # env vars. Exactly one of these runs per workflow invocation:
+      #
+      #   - Sprint 1 + 2: APPLE_CERTIFICATE secret unset → unsigned build.
+      #   - Sprint 3 onward: secret set → signed + notarized build.
+      #
+      # See RELEASE.md for the complete flip checklist.
+
+      - name: Build UNSIGNED (Apple cert secret absent)
+        if: env.APPLE_CERTIFICATE == ''
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: apps/desktop
+          tagName: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '' }}
+          releaseName: ${{ startsWith(github.ref, 'refs/tags/v') && format('LifeOps {0}', github.ref_name) || '' }}
+          releaseBody: |
+            LifeOps release — see RELEASE.md for the unsigned-now /
+            notarized-later distribution model.
+          releaseDraft: true
+          prerelease: false
+          args: --target aarch64-apple-darwin
+
+      - name: Build SIGNED + NOTARIZED (Apple cert secret present)
+        if: env.APPLE_CERTIFICATE != ''
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Pass-through from job-level env so tauri-action sees them.
+          APPLE_CERTIFICATE: ${{ env.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ env.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ env.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ env.APPLE_ID }}
+          APPLE_PASSWORD: ${{ env.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ env.APPLE_TEAM_ID }}
+          KEYCHAIN_PASSWORD: ${{ env.KEYCHAIN_PASSWORD }}
+        with:
+          projectPath: apps/desktop
+          tagName: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '' }}
+          releaseName: ${{ startsWith(github.ref, 'refs/tags/v') && format('LifeOps {0}', github.ref_name) || '' }}
+          releaseBody: |
+            LifeOps release — signed + notarized.
+          releaseDraft: true
+          prerelease: false
+          args: --target aarch64-apple-darwin
+
+      - name: Upload .dmg as workflow artifact (always, even on workflow_dispatch)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LifeOps-macos-arm64-dmg
+          path: apps/desktop/src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/*.dmg
+          if-no-files-found: warn
+          retention-days: 14

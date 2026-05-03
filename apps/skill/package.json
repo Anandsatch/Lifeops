@@ -1,0 +1,9 @@
+{
+  "name": "@lifeops/skill",
+  "version": "0.0.1",
+  "private": true,
+  "description": "SKILL.md + bash helpers that shell out to `pc query` (no direct YAML parsing).",
+  "scripts": {
+    "test": "echo 'skill is bash + markdown; smoke test runs in E5-T4'"
+  }
+}
