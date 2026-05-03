@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "LifeOps",
+  "version": "0.0.1",
+  "identifier": "app.lifeops.desktop",
+  "build": {
+    "beforeDevCommand": "pnpm --filter @lifeops/desktop run dev",
+    "beforeBuildCommand": "pnpm --filter @lifeops/desktop run build",
+    "devUrl": "http://localhost:1420",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "LifeOps",
+        "width": 1100,
+        "height": 720,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["dmg", "app"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png"
+    ],
+    "category": "Productivity",
+    "shortDescription": "LifeOps — local-first personal context layer",
+    "longDescription": "LifeOps is a local-first personal context layer for credit cards, loyalty, and benefits.",
+    "macOS": {
+      "minimumSystemVersion": "12.0",
+      "entitlements": "entitlements.plist",
+      "exceptionDomain": ""
+    },
+    "// externalBin note": "E1-T6 stub. Real Bun-bundled `pc` binary replaces this in E3-T9. Tauri auto-resolves the target-triple suffix (e.g. binaries/pc-aarch64-apple-darwin) on macos-14 arm64.",
+    "externalBin": ["binaries/pc"]
+  }
+}

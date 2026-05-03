@@ -1,0 +1,34 @@
+{
+  "name": "@lifeops/context-io",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Atomic read/write + file-watch + field-level merge for the personal-context YAML.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "src", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:race": "vitest run race",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@lifeops/schema": "workspace:*",
+    "chokidar": "^4.0.1",
+    "proper-lockfile": "^4.1.2",
+    "yaml": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/proper-lockfile": "^4.1.4",
+    "fast-check": "^3.23.1",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  }
+}

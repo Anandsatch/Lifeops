@@ -1,0 +1,27 @@
+{
+  "name": "@lifeops/cli",
+  "version": "0.0.1",
+  "private": true,
+  "description": "`pc` — Bun-bundled CLI for personal-context YAML (init, demo, validate, query, add, list, doctor).",
+  "type": "module",
+  "bin": {
+    "pc": "./dist/pc.js"
+  },
+  "scripts": {
+    "build": "bun build ./src/pc.ts --compile --target=bun --outfile=dist/pc",
+    "build:js": "tsc -p tsconfig.json",
+    "dev": "bun run src/pc.ts",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@lifeops/context-io": "workspace:*",
+    "@lifeops/schema": "workspace:*",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.13",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  }
+}

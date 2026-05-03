@@ -1,0 +1,29 @@
+{
+  "name": "@lifeops/benefit-packs",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Curated JSON benefit packs (Amex/Chase/Citi/Capital One/Marriott/Hyatt/etc.) — defaults the user can override.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./packs/*": "./packs/*"
+  },
+  "files": ["dist", "src", "packs", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@lifeops/schema": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  }
+}

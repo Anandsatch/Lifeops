@@ -646,18 +646,18 @@ Save the table below as `tickets.csv` and import:
 
 ```csv
 ID,Epic,Title,Owner,Hours,Sprint,Critical Path,Status
-E1-T1,E1 Foundation,Repo scaffold,TL,2,S1.W1,No,Todo
-E1-T2,E1 Foundation,Notarized Hello World pipeline,TL,8,S1.W1,Yes,Todo
-E1-T3,E1 Foundation,GitHub Actions CI,TL,3,S1.W1,No,Todo
-E1-T4,E1 Foundation,Apple Developer Program enrollment,PM,0.5,S1.W1,No,Todo
-E1-T5,E1 Foundation,Code-signing cert + ASC API key,TL,1,S1.W1,No,Todo
-E1-T6,E1 Foundation,Embedded pc sidecar stub,TL,2,S1.W1,No,Todo
-E2-T1,E2 Schema & IO,Zod schemas,TL,5,S1.W1,Yes,Todo
-E2-T2,E2 Schema & IO,Atomic write,TL,6,S1.W1,Yes,Todo
-E2-T3,E2 Schema & IO,Atomic read,TL,3,S1.W1,No,Todo
-E2-T4,E2 Schema & IO,File watcher,TL,3,S1.W1,No,Todo
-E2-T5,E2 Schema & IO,Merge protocol,TL,5,S1.W1,No,Todo
-E2-T6,E2 Schema & IO,Race tests,TL,6,S1.W1,Yes,Todo
+E1-T1,E1 Foundation,Repo scaffold,TL,2,S1.W1,No,Done
+E1-T2,E1 Foundation,Unsigned Hello World pipeline (notarized scope reduced per spec §P9),TL,8,S1.W1,Yes,Done
+E1-T3,E1 Foundation,GitHub Actions CI,TL,3,S1.W1,No,Done
+E1-T4,E1 Foundation,Apple Developer Program enrollment,PM,0.5,S3,No,Deferred
+E1-T5,E1 Foundation,Code-signing cert + ASC API key,TL,1,S3,No,Deferred
+E1-T6,E1 Foundation,Embedded pc sidecar stub,TL,2,S1.W1,No,Done
+E2-T1,E2 Schema & IO,Zod schemas,TL,5,S1.W1,Yes,Done
+E2-T2,E2 Schema & IO,Atomic write,TL,6,S1.W1,Yes,Done
+E2-T3,E2 Schema & IO,Atomic read,TL,3,S1.W1,No,Done
+E2-T4,E2 Schema & IO,File watcher,TL,3,S1.W1,No,Done
+E2-T5,E2 Schema & IO,Merge protocol,TL,5,S1.W1,No,Done
+E2-T6,E2 Schema & IO,Race tests,TL,6,S1.W1,Yes,Done
 E3-T1,E3 CLI,pc CLI bootstrap,TL,1,S1.W3,No,Todo
 E3-T2,E3 CLI,pc init,TL,1,S1.W3,No,Todo
 E3-T3,E3 CLI,pc demo,TL,1,S1.W3,No,Todo

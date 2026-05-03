@@ -1,0 +1,48 @@
+# LifeOps fast-feedback CI gate.
+#
+# Runs on every push + every PR to main. Ubuntu (cheap, no Tauri/Rust build).
+# The heavy macos-14 build only runs in release.yml on tag push.
+#
+# Security: this workflow does NOT consume attacker-controllable inputs
+# (no github.event.*, github.head_ref, github.event.commits.*.message, etc).
+
+name: ci
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: pnpm
+
+      - name: Install workspace deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck (all workspaces)
+        run: pnpm -r run typecheck
+
+      - name: Test (all workspaces)
+        run: pnpm -r run test
