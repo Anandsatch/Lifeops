@@ -4,8 +4,72 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LifeOps</title>
+    <!--
+      E4-T6 pre-warmed splash. Inline CSS + DOM so the first paint happens
+      the moment the WebView parses this file, BEFORE the JS bundle loads
+      or React mounts. App.tsx removes #lo-splash on its first useEffect.
+
+      Rationale: Tauri 2.x cold-start on M-series shows a brief blank
+      window between native window creation and React first-paint
+      (~150-400ms in dev, ~50-150ms in release). The blank window reads
+      as "broken" to a first-time user; the splash absorbs it. Per spec
+      §P8: target perceived launch <2s.
+
+      Colors are duplicated here (rather than @import-ed) so the splash
+      doesn't depend on the design-system stylesheet finishing its
+      network fetch (JetBrains Mono from Google Fonts) — if fonts time
+      out, we still get the LifeOps surface color, no FOUC flash to
+      browser-default white.
+    -->
+    <style>
+      #lo-splash {
+        position: fixed;
+        inset: 0;
+        background: #F0EDE6;
+        color: #1A1A1A;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        z-index: 2147483647;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      #lo-splash .lo-splash__mark {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-weight: 700;
+        font-size: 28px;
+        letter-spacing: 0.08em;
+        color: #0F4C3A;
+      }
+      #lo-splash .lo-splash__bar {
+        width: 200px;
+        height: 2px;
+        background: #E0DCD2;
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+      }
+      #lo-splash .lo-splash__bar::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #0F4C3A;
+        border-radius: 2px;
+        animation: lo-splash-slide 1.1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+      @keyframes lo-splash-slide {
+        0%   { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+    </style>
   </head>
   <body>
+    <div id="lo-splash" role="status" aria-label="LifeOps loading">
+      <div class="lo-splash__mark">LIFEOPS</div>
+      <div class="lo-splash__bar"></div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
