@@ -1,3 +1,67 @@
+/* ============================================================
+   LifeOps Desktop — global stylesheet (E4-T2)
+
+   Order matters and is dictated by CSS spec + Tailwind layering:
+   1. @import statements (CSS spec requires these first). Pulls in
+      LifeOps tokens + components from design/, the canonical
+      source consumed directly per W2 takeover instructions.
+   2. @tailwind directives. Tailwind preflight runs AFTER design
+      tokens load so .lo-* classes win on cascade where needed.
+      Tailwind here is utility-only chrome (spacing, layout) —
+      product UI uses .lo-* classes from the design system.
+   3. shadcn variable shim — maps shadcn's standard CSS variable
+      names to LifeOps tokens. No shadcn primitive is installed
+      in W2; the shim ensures any future shadcn install is
+      pre-wired to LifeOps colors with no extra config (avoids
+      the "default shadcn AI-startup uniform" risk per spec §P8).
+   4. App baseline.
+   ============================================================ */
+
+@import "../../../design/lifeops-tokens.css";
+@import "../../../design/lifeops-components.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --background:        var(--lo-desk);
+  --foreground:        var(--lo-ink);
+  --card:              var(--lo-warm-white);
+  --card-foreground:   var(--lo-ink);
+  --popover:           var(--lo-warm-white);
+  --popover-foreground:var(--lo-ink);
+  --primary:           var(--lo-amex);
+  --primary-foreground:var(--lo-card-text);
+  --secondary:         var(--lo-warm-tint);
+  --secondary-foreground: var(--lo-ink);
+  --muted:             var(--lo-warm-tint);
+  --muted-foreground:  var(--lo-ink-muted);
+  --accent:            var(--lo-amex-tint);
+  --accent-foreground: var(--lo-amex);
+  --destructive:       var(--lo-red);
+  --destructive-foreground: var(--lo-card-text);
+  --border:            var(--lo-hairline);
+  --input:             var(--lo-hairline);
+  --ring:              var(--lo-amex);
+  --radius:            var(--lo-r-md);
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--lo-desk);
+  color: var(--lo-ink);
+  font-family: var(--lo-font-text);
+  font-size: var(--lo-fs-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.lo-mono { font-family: var(--lo-font-mono); font-variant-numeric: tabular-nums; }
