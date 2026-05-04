@@ -8,6 +8,7 @@ import { useScreenController } from './state/appState';
 import { WindowChrome } from './components/WindowChrome';
 import { Landing } from './screens/Landing';
 import { Dashboard } from './screens/Dashboard';
+import { Onboarding } from './screens/Onboarding';
 
 export function App(): ReactElement {
   const controller = useScreenController();
@@ -22,11 +23,13 @@ export function App(): ReactElement {
 
   return (
     <WindowChrome controller={controller}>
-      {controller.screen === 'landing' ? (
-        <Landing onDismiss={controller.dismissLanding} />
-      ) : (
-        <Dashboard />
+      {controller.screen === 'onboarding' && (
+        <Onboarding onSeeItWork={controller.completeOnboarding} />
       )}
+      {controller.screen === 'landing' && (
+        <Landing onDismiss={controller.dismissLanding} />
+      )}
+      {controller.screen === 'dashboard' && <Dashboard />}
     </WindowChrome>
   );
 }

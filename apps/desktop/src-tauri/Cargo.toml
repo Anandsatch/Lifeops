@@ -19,6 +19,14 @@ tauri = { version = "2", features = [] }
 tauri-plugin-shell = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+# E4-T12: notify-based file watcher for ~/.personal-context.yaml.
+# chokidar (the W1 context-io watcher) is Node-only and does not run in
+# Tauri's WebView, so the watcher lives Rust-side and emits Tauri events
+# back to the React frontend. The semantics match watchContext: 150ms
+# debounce, change/add/unlink only, idempotent (full re-read each tick).
+notify = "6"
+notify-debouncer-mini = "0.4"
+dirs = "5"
 
 [profile.release]
 panic = "abort"

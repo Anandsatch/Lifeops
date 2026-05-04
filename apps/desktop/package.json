@@ -10,12 +10,16 @@
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build",
-    "test": "vitest run --passWithNoTests",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "test": "node scripts/validate-demo-yaml.mjs && vitest run --passWithNoTests",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "validate:demo": "node scripts/validate-demo-yaml.mjs"
   },
   "dependencies": {
+    "@lifeops/schema": "workspace:*",
+    "@tauri-apps/api": "^2.1.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "yaml": "^2.6.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.1.0",

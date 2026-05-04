@@ -43,6 +43,8 @@
       "exceptionDomain": ""
     },
     "// externalBin note": "E1-T6 stub. Real Bun-bundled `pc` binary replaces this in E3-T9. Tauri auto-resolves the target-triple suffix (e.g. binaries/pc-aarch64-apple-darwin) on macos-14 arm64.",
-    "externalBin": ["binaries/pc"]
+    "externalBin": ["binaries/pc"],
+    "// resources note": "E4-T4 demo data. Loaded on first launch when ~/.personal-context.yaml does not yet exist. Anonymized; safe to ship.",
+    "resources": ["resources/*"]
   }
 }

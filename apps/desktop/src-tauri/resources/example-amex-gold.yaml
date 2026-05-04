@@ -1,0 +1,249 @@
+# LifeOps demo data — anonymized, MIT-licensed, safe to ship.
+#
+# Loaded on first launch when ~/.personal-context.yaml does not yet exist.
+# Conforms to @lifeops/schema v0.1.0 (PersonalContext shape). DO NOT add
+# real personal data here — that's what ~/.personal-context.yaml is for.
+#
+# This file is read-only at runtime (it lives inside the app bundle).
+# Onboarding wizard's "See it work" copies it to ~/.personal-context.yaml
+# the first time the user proceeds past the demo.
+
+_meta:
+  schema_version: "0.1.0"
+  last_modified: "2026-05-10T08:00:00-04:00"
+  source_app: "lifeops-desktop"
+  notes: "Anonymized demo data. Replace with your own via the in-app forms (E4-T13) or `pc init`."
+
+cards:
+  - id: amex_gold
+    issuer: amex
+    product: gold
+    annual_fee:
+      amount: 250
+      currency: USD
+    anchor_date: "2024-03-15"
+    status: active
+    transfer_partners:
+      - { program: marriott_bonvoy, ratio: "1:1" }
+      - { program: hilton_honors,   ratio: "1:2" }
+      - { program: delta_skymiles,  ratio: "1:1" }
+      - { program: british_airways, ratio: "1:1" }
+      - { program: hyatt,           ratio: "1:1" }   # note: not actual partner; demo only
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: chase_sapphire_reserve
+    issuer: chase
+    product: sapphire_reserve
+    annual_fee:
+      amount: 550
+      currency: USD
+    anchor_date: "2023-09-01"
+    status: active
+    transfer_partners:
+      - { program: hyatt,           ratio: "1:1" }
+      - { program: marriott_bonvoy, ratio: "1:1" }
+      - { program: united_mileageplus, ratio: "1:1" }
+      - { program: british_airways, ratio: "1:1" }
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: amex_platinum
+    issuer: amex
+    product: platinum
+    annual_fee:
+      amount: 695
+      currency: USD
+    anchor_date: "2025-01-20"
+    status: active
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+loyalty:
+  - program_id: marriott_bonvoy
+    status: titanium
+    points: 184500
+    free_night_certs:
+      - { category_max: "50k",  expires_at: "2027-12-31", count: 2 }
+      - { category_max: "85k",  expires_at: "2027-12-31", count: 1 }
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - program_id: hyatt
+    status: globalist
+    points: 142000
+    free_night_certs:
+      - { category_max: "Cat 1-7", expires_at: "2026-12-31", count: 1 }
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - program_id: delta_skymiles
+    status: gold
+    points: 47200
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+service_credits:
+  - id: inkind_balance
+    vendor: inkind
+    amount: 40
+    currency: USD
+    cadence: anniversary
+    expires_at: "2027-12-31"
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+benefit_definitions:
+  - id: amex_gold_dining_def
+    card_id: amex_gold
+    name: "Monthly dining credit"
+    amount: 10
+    currency: USD
+    cadence: monthly
+    eligible_merchants:
+      - grubhub
+      - cheesecake_factory
+      - five_guys
+      - goldbelly
+      - milk_bar
+      - shake_shack
+      - wine.com
+    description: "Up to $10/month at select dining merchants. Resets calendar month."
+    provenance:
+      source: benefit-pack-default
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: amex_gold_uber_def
+    card_id: amex_gold
+    name: "Monthly Uber Cash"
+    amount: 10
+    currency: USD
+    cadence: monthly
+    eligible_merchants: [uber, uber_eats]
+    description: "$10/month Uber Cash; auto-loaded into Uber wallet."
+    provenance:
+      source: benefit-pack-default
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: amex_gold_dunkin_def
+    card_id: amex_gold
+    name: "Monthly Dunkin' credit"
+    amount: 7
+    currency: USD
+    cadence: monthly
+    eligible_merchants: [dunkin]
+    description: "$7/month at Dunkin' Donuts."
+    provenance:
+      source: benefit-pack-default
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: amex_gold_resy_def
+    card_id: amex_gold
+    name: "Semi-annual Resy credit"
+    amount: 50
+    currency: USD
+    cadence: quarterly  # actually semi-annual; W1 enum closest match
+    eligible_merchants: [resy]
+    description: "Up to $50 in Resy charges, twice yearly (Jan-Jun and Jul-Dec)."
+    provenance:
+      source: benefit-pack-default
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: csr_travel_def
+    card_id: chase_sapphire_reserve
+    name: "Annual travel credit"
+    amount: 300
+    currency: USD
+    cadence: annual
+    eligible_merchants: ["* travel codes"]
+    description: "$300 statement credit for any travel-coded charge; resets cardmember anniversary."
+    provenance:
+      source: benefit-pack-default
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: amex_plat_hotel_def
+    card_id: amex_platinum
+    name: "Annual FHR/THC hotel credit"
+    amount: 200
+    currency: USD
+    cadence: annual
+    eligible_merchants: [fhr, the_hotel_collection]
+    description: "$200 statement credit for prepaid FHR or 2-night THC hotel bookings; resets calendar year."
+    provenance:
+      source: benefit-pack-default
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+credit_instances:
+  # The hero — most-expiring credit. May 10 today, May 31 expiry → 21d.
+  - id: amex_gold_dining_2026_05
+    definition_id: amex_gold_dining_def
+    period_start: "2026-05-01"
+    period_end:   "2026-05-31"
+    amount_total: 10
+    amount_used:  3
+    expires_at:   "2026-05-31"
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: amex_gold_uber_2026_05
+    definition_id: amex_gold_uber_def
+    period_start: "2026-05-01"
+    period_end:   "2026-05-31"
+    amount_total: 10
+    amount_used:  0
+    expires_at:   "2026-05-31"
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: amex_gold_dunkin_2026_05
+    definition_id: amex_gold_dunkin_def
+    period_start: "2026-05-01"
+    period_end:   "2026-05-31"
+    amount_total: 7
+    amount_used:  0
+    expires_at:   "2026-05-31"
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: amex_gold_resy_2026_h1
+    definition_id: amex_gold_resy_def
+    period_start: "2026-01-01"
+    period_end:   "2026-06-30"
+    amount_total: 50
+    amount_used:  25
+    expires_at:   "2026-06-30"
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: csr_travel_2026
+    definition_id: csr_travel_def
+    period_start: "2025-09-01"
+    period_end:   "2026-08-31"
+    amount_total: 300
+    amount_used:  240
+    expires_at:   "2026-08-31"
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
+
+  - id: amex_plat_hotel_2026
+    definition_id: amex_plat_hotel_def
+    period_start: "2026-01-01"
+    period_end:   "2026-12-31"
+    amount_total: 200
+    amount_used:  0
+    expires_at:   "2026-12-31"
+    provenance:
+      source: human
+      last_verified_at: "2026-05-10T08:00:00-04:00"
