@@ -668,18 +668,18 @@ E3-T7,E3 CLI,pc install-claude,TL,3,S1.W3,No,Todo
 E3-T8,E3 CLI,bun build --compile,TL,2,S1.W3,Yes,Todo
 E3-T9,E3 CLI,Embedded sidecar,TL,2,S1.W3,Yes,Todo
 E3-T10,E3 CLI,pc add (pulled from E7-T4),TL,3,S1.W3,No,Todo
-E4-T1,E4 Native App,Tauri+Vite+React shell,FE,4,S1.W2,Yes,Todo
-E4-T2,E4 Native App,Design system import,FE,3,S1.W2,Yes,Todo
-E4-T3,E4 Native App,Landing screen UC10,FE,6,S1.W2,Yes,Todo
-E4-T4,E4 Native App,Dashboard UC12,FE,6,S1.W2,Yes,Todo
-E4-T5,E4 Native App,Onboarding wizard,FE,4,S1.W2,No,Todo
-E4-T6,E4 Native App,Pre-warmed splash,FE,2,S1.W2,No,Todo
+E4-T1,E4 Native App,Tauri+Vite+React shell,FE,4,S1.W2,Yes,Done
+E4-T2,E4 Native App,Design system import,FE,3,S1.W2,Yes,Done
+E4-T3,E4 Native App,Landing screen UC10,FE,6,S1.W2,Yes,Done
+E4-T4,E4 Native App,Dashboard UC12,FE,6,S1.W2,Yes,Done
+E4-T5,E4 Native App,Onboarding wizard,FE,4,S1.W2,No,Done
+E4-T6,E4 Native App,Pre-warmed splash,FE,2,S1.W2,No,Done
 E4-T7,E4 Native App,Inventory expanded,FE,4,S2,No,Deferred
 E4-T8,E4 Native App,Card detail,FE,4,S2,No,Deferred
 E4-T9,E4 Native App,Loyalty status,FE,4,S2,No,Deferred
 E4-T10,E4 Native App,Use credit interaction,FE,5,S1.W3,Yes,Todo
 E4-T11,E4 Native App,Settings sheet,FE,3,S1.W3,No,Todo
-E4-T12,E4 Native App,File-watching re-render,FE,3,S1.W2,No,Todo
+E4-T12,E4 Native App,File-watching re-render,FE,3,S1.W2,No,Done
 E4-T13,E4 Native App,In-app data entry forms,FE,7,S1.W3,Yes,Todo
 E5-T1,E5 Skill,SKILL.md,TL,1,S1.W3,Yes,Todo
 E5-T2,E5 Skill,Bash helpers,TL,3,S1.W3,Yes,Todo
@@ -735,6 +735,13 @@ E9-T5,E9 Validation,Decision gate doc,PM,1,S1.W3,Yes,Todo
   - Defers E4-T7/T8/T9 (inventory expanded, card detail, loyalty status — 12h total) from Sprint 1 to Sprint 2 to make room.
   - Apple Dev Program enrollment confirmed deferred to Sprint 3 launch gate per spec P9 (Personal Team signing for Sprint 1+2 dogfood).
   - Critical path now 78h (was 70h). Sprint 1 ships: Landing, Dashboard, Onboarding, Settings, Use-credit, In-app data entry — the actual product loop. Polish screens move to Sprint 2.
+- **v0.4** (2026-05-10) — Sprint 1 W2 Track A+B shipped (PR #3):
+  - E4-T1 finish, E4-T2, E4-T3, E4-T4, E4-T5, E4-T6, E4-T8 (Tauri command), E4-T12 — all Done
+  - Magic moment validated end-to-end via vite preview + playwright at 1440×900: Welcome → click → Dashboard with Zod-validated demo YAML in <2s
+  - **OSS schema gaps surfaced for E8-T0 (last chance before W3 publish + freeze):**
+    - Spec doc shows `credit_instances.amount` as `{amount, currency}` Money objects + a `usage_ledger` array per instance; W1 Zod schema uses bare `amount_total`/`amount_used` numbers with currency on the parent BenefitDefinition only, no ledger. PM decision needed: align spec doc to schema (drop ledger from v0.1.0), or align schema to spec doc (additive change still possible before W3 freeze)
+    - Spec shows top-level `_meta.fields["..."]` provenance sidecar; schema implements per-record `_provenance: FieldProvenanceMap` instead. Already documented as deliberate additive extension in `provenance.ts`; flag spec doc to match
+  - **W2 spec deviation worth recording:** E4-T12 cannot literally "use packages/context-io's watchContext" — chokidar is Node-only, will not run in a Tauri WebView. Watching is in Rust via `notify-debouncer-mini` with matching 150ms debounce + idempotent re-derive contract. Sprint 2's MCP server (Node) can use context-io's watcher directly when it lands
 - **v0.3** (2026-05-02) — Competitor research findings ([`outputs/competitor-scan.md`](outputs/competitor-scan.md)):
   - **CardPointers shipped a live Claude MCP in March 2026.** "First loyalty + Claude integration" headline is taken. LifeOps differentiates on schema depth (rule/instance split, provenance, local-first), not LLM integration itself.
   - **MaxRewards is the most dangerous competitor** — has partial credit tracking already; if they ship MCP before LifeOps publishes the schema, the gap closes.
